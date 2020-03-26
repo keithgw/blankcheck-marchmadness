@@ -1,0 +1,104 @@
+---
+title: "win probabilities"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(tidyverse)
+purrr::walk(list.files("./R", full.names = TRUE), source)
+theme_set(theme_minimal())
+```
+
+```{r}
+vote_data <- read_csv("data/votes-mainfeed-2020.csv")
+bc_colors <- list(purple = "#715280", blue = "#5B86BF", green = "#6D8F6C", bagel = "#D3984F")
+```
+
+```{r}
+matchup_data <- make_matchup_data(vote_data)
+matchups_wvl <- matchup_data %>% 
+  filter(votes1 > votes2) %>% 
+  mutate(matchup = paste(director1, director2, sep = " vs "))
+```
+
+```{r}
+# replacement level
+vote_data %>% 
+  group_by(round) %>% 
+  summarise(mean_votes = mean(votes))
+
+vote_data %>% 
+  filter(round < 3) %>% # only completed rounds
+  ggplot(aes(round, votes, group = director)) + 
+  geom_line()
+```
+
+Matchups are matches, and votes are like points scored.  
+From https://sabr.org/research/probabilities-victory-head-head-team-matchups
+
+$$P(A) = \frac{WP_A(1 - WP_B)}{WP_A(1 - WP_B) + WP_B(1 - WP_A)}$$  
+$$WP_A = P(A | WP_B = 0.5)$$  
+$$P(A | WP_A = WP_B) = 0.5$$  
+
+Questions:  
+- Can we substitute $P(A)$ for votes / total for a matchup? This would give us a line for $(WP_A, WP_B)$.  
+  + This throws away information about number of votes cast
+- Can we give a probability distribution on the number of votes that would have been cast for each director?  
+  + Is each matchup Binomial(total_votes, p_A)? and maybe total_votes ~ Poisson(lambda)?
+  + Is there information in the distribution of total_votes?  
+  + Is total_votes a function of director, a function of round, a function of oscars/razzies?  
+  
+```{r}
+# take a shot at P(A) = votes / total  
+
+p_a <- function(wp_a, wp_b) {
+  wp_a_b <- wp_a * (1 - wp_b)
+  wp_b_a <- wp_b * (1 - wp_a)
+  wp_a_b / (wp_a_b + wp_b_a)
+}
+
+wp_b <- function(p_a, wp_a) {
+  (1 - p_a) / (1 - 2*p_a + p_a/wp_a)
+}
+```
+
+```{r}
+get_opponents_of_opponents <- function(director, opponent, matchups) {
+  filter(matchups, director1 == opponent, director2 != director)
+}
+
+# get_all_opponents <- function(filtered, matchups) {
+#   opponents <- purrr::map2_df(filtered$director1, filtered$director2, ~get_opponents_of_opponents(.x, .y, matchups))
+#   if (nrow(opponents == 0)) {
+#     print("base case")
+#     return(opponents)
+#   } else {
+#     print("recurse case")
+#     bind_rows(opponents, get_all_opponents(opponents, matchups))
+#   }
+# }
+# 
+# director_tree <- function(director, matchups) {
+#   filtered <- filter(matchups, director1 == director)
+#   bind_rows(filtered, get_all_opponents(filtered, matchups))
+# }
+# 
+# director_tree("Coen Brothers", matchup_data)
+
+dir <- "Coen Brothers"
+coens <- filter(matchup_data, director1 == "Coen Brothers")
+opponents <- purrr::map2_df(coens$director1, coens$director2, ~get_opponents_of_opponents(.x, .y, matchup_data))
+opponents2 <- purrr::map2_df(opponents$director1, opponents$director2, ~get_opponents_of_opponents(.x, .y, matchup_data))
+opponents3 <- purrr::map2_df(opponents2$director1, opponents2$director2, ~get_opponents_of_opponents(.x, .y, matchup_data))
+coens_tree <- bind_rows(coens, opponents, opponents2, opponents3)
+```
+
+To solve this, you would need a three-way round-robin, or you must fix a single WP. Maybe could set the avg(votes) to have WP = 0.500
+
+```{r}
+
+```
+
