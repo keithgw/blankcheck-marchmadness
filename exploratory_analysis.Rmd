@@ -1,0 +1,64 @@
+---
+title: "Blank Check March Madness: Main Feed"
+output: 
+  html_document:
+    keep_md: true
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(tidyverse)
+purrr::walk(list.files("./R", full.names = TRUE), source)
+theme_set(theme_minimal())
+```
+
+```{r}
+vote_data <- read_csv("data/votes-mainfeed-2020.csv")
+bc_colors <- list(purple = "#715280", blue = "#5B86BF", green = "#6D8F6C", bagel = "#D3984F")
+```
+
+```{r}
+matchup_data <- make_matchup_data(vote_data)
+matchups_wvl <- matchup_data %>% 
+  filter(votes1 > votes2) %>% 
+  mutate(matchup = paste(director1, director2, sep = " vs "))
+  
+ggplot(matchups_wvl, aes(forcats::fct_reorder(matchup, total_votes), total_votes, fill = as.factor(round))) +
+  geom_bar(stat = "identity") + 
+  scale_fill_manual(values = as.character(bc_colors)) +
+  coord_flip() + 
+  labs(
+    title = "Total Votes by Matchup",
+    subtitle = "winner named First",
+    x = "Matchup",
+    y = "Total Votes",
+    fill = "Round"
+  )
+```
+
+```{r}
+matchups_wvl %>% 
+  mutate(
+    margin = votes1 - votes2,
+    percent = 100 * margin / total_votes
+  ) %>% 
+  ggplot(aes(forcats::fct_reorder(matchup, percent), percent, fill = as.factor(round))) + 
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = as.character(bc_colors)) +
+  coord_flip() +
+  labs(
+    title = "Margin of Victory",
+    subtitle = "winner named first",
+    x = "Matchup",
+    y = "Percent",
+    fill = "Round"
+  )
+```
+
+```{r}
+select(matchups_wvl, matchup, round, winner = director1, loser = director2, winning_votes = votes1, losing_votes = votes2, total_votes) %>% 
+  DT::datatable()
+```
+

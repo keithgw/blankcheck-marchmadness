@@ -1,6 +1,6 @@
 round,director,opponent,votes
 1,Coen Brothers,Martin Scorsese,6574
-1,Martin Scorses,Coen Brothers,4135
+1,Martin Scorsese,Coen Brothers,4135
 1,Michael Bay,Tom Green,4759
 1,Tom Green,Michael Bay,1748
 1,Mike Nichols,Warren Beatty,3647
@@ -27,8 +27,8 @@ round,director,opponent,votes
 1,Guillermo Del Toro,William Friedkin,3469
 1,Gus Van Sant,Barry Sonnenfeld,2356
 1,Barry Sonnenfeld,Gus Van Sant,2905
-1,Francis Ford Copolla,Bob Fosse,3658
-1,Bob Fosse,Fancis Ford Copolla,2093
+1,Francis Ford Coppola,Bob Fosse,3658
+1,Bob Fosse,Francis Ford Coppola,2093
 1,Elaine May,Blake Edwards,3945
 1,Blake Edwards,Elaine May,982
 2,Coen Brothers,Mike Nichols,4447
