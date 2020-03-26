@@ -1,0 +1,51 @@
+round,director,opponent,votes
+1,Coen Brothers,Martin Scorsese,6574
+1,Martin Scorses,Coen Brothers,4135
+1,Michael Bay,Tom Green,4759
+1,Tom Green,Michael Bay,1748
+1,Mike Nichols,Warren Beatty,3647
+1,Warren Beatty,Mike Nichols,2257
+1,Sylvester Stallone,Michael Cimino,2814
+1,Michael Cimino,Sylvester Stallone,3005
+1,Peter Jackson,Robert Zemeckis,2719
+1,Robert Zemeckis,Peter Jackson,3695
+1,Kevin Costner,Tom Hooper,3179
+1,Tom Hooper,Kevin Costner,3185
+1,Alfonso Cuaron,David Lean,4016
+1,David Lean,Alfonso Cuaron,3044
+1,Guy Ritchie,Prince,3613
+1,Prince,Guy Ritchie,3743
+1,Anthony Minghella,Danny Boyle,1931
+1,Danny Boyle,Anthony Minghella,3944
+1,Dennis Dugan,Martin Brest,1577
+1,Martin Brest,Dennis Dugan,3056
+1,Milos Forman,Bong Joon-ho,2364
+1,Bong Joon-ho,Milos Forman,4743
+1,Bill Condon,Peter Farrely,2490
+1,Peter Farrely,Bill Condon,2286
+1,William Friedkin,Guillermo Del Toro,2815
+1,Guillermo Del Toro,William Friedkin,3469
+1,Gus Van Sant,Barry Sonnenfeld,2356
+1,Barry Sonnenfeld,Gus Van Sant,2905
+1,Francis Ford Copolla,Bob Fosse,3658
+1,Bob Fosse,Fancis Ford Copolla,2093
+1,Elaine May,Blake Edwards,3945
+1,Blake Edwards,Elaine May,982
+2,Coen Brothers,Mike Nichols,4447
+2,Mike Nichols,Coen Brothers,2226
+2,Michael Bay,Michael Cimino,3407
+2,Michael Cimino,Michael Bay,2809
+2,Robert Zemeckis,Alfonso Cuaron,4343
+2,Alfonso Cuaron,Robert Zemeckis,2439
+2,Tom Hooper,Prince,3296
+2,Prince,Tom Hooper,3397
+2,Danny Boyle,Bong Joon-ho,3272
+2,Bong Joon-ho,Danny Boyle,4145
+2,Bill Condon,Martin Brest,2612
+2,Martin Brest,Bill Condon,3058
+2,Guillermo Del Toro,Francis Ford Coppola,6026
+2,Francis Ford Coppola,Guillermo Del Toro,3886
+2,Barry Sonnenfeld,Elaine May,3676
+2,Elaine May,Barry Sonnenfeld,3452
+3,Coen Brothers,Robert Zemeckis,7150
+3,Robert Zemeckis,Coen Brothers,7435

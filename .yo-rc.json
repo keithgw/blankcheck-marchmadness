@@ -1,0 +1,24 @@
+{
+  "generator-start-r": {
+    "promptValues": {
+      "maintainerFirstName": "Keith",
+      "maintainerLastName": "Williams"
+    },
+    "projectType": "script",
+    "projectName": "blankcheck-marchmadness",
+    "projectDescription": "Development Environment for blankcheck marchmadness",
+    "projectVersion": "0.0.0.9000",
+    "projectUrl": "http://www.github.com/RedVentures/blankcheck-marchmadness",
+    "rVersion": "3.6.0",
+    "renvVersion": "0.7.1-20",
+    "renvCachePath": "~/Library/ApplicationSupport/renv",
+    "baseImage": "rocker/tidyverse",
+    "orgName": "Keith Williams",
+    "orgURL": "https://github.com/keithgw",
+    "orgDepartment": "NA",
+    "maintainerFirstName": "Keith",
+    "maintainerLastName": "Williams",
+    "maintainerName": "Keith Williams",
+    "maintainerEmail": "keith.gordon.williams@gmail.com"
+  }
+}
