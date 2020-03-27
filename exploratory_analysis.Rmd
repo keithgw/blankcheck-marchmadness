@@ -16,7 +16,7 @@ theme_set(theme_minimal())
 
 ```{r}
 vote_data <- read_csv("data/votes-mainfeed-2020.csv")
-bc_colors <- list(purple = "#715280", blue = "#5B86BF", green = "#6D8F6C", bagel = "#D3984F")
+bc_colors <- list(purple = "#715280", blue = "#5B86BF", green = "#6D8F6C", bagel = "#D3984F", gold = "#F9CE5E")
 ```
 
 ```{r}
@@ -31,7 +31,25 @@ ggplot(matchups_wvl, aes(forcats::fct_reorder(matchup, total_votes), total_votes
   coord_flip() + 
   labs(
     title = "Total Votes by Matchup",
-    subtitle = "winner named First",
+    subtitle = "winner named first",
+    x = "Matchup",
+    y = "Total Votes",
+    fill = "Round"
+  )
+```
+
+```{r}
+award_data <- read_csv("data/oscar-razzie.csv")
+matchups_wvl %>% 
+  left_join(award_data, by = c("director1" = "director")) %>% 
+  ggplot(aes(forcats::fct_reorder(matchup, total_votes), total_votes, fill = award)) + 
+  geom_bar(stat = "identity") + 
+  # scale_fill_manual(values = ) +
+  scale_fill_manual(values = c(bc_colors$gold, bc_colors$purple)) +
+  coord_flip() + 
+  labs(
+    title = "Total Votes by Matchup",
+    subtitle = "winner named first",
     x = "Matchup",
     y = "Total Votes",
     fill = "Round"
