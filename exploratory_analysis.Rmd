@@ -76,6 +76,67 @@ matchups_wvl %>%
 ```
 
 ```{r}
+final_four_directors <- matchups_wvl %>% 
+  filter(round == 3) %>% 
+  magrittr::use_series(director1)
+
+final_four <- matchups_wvl %>% 
+  filter(director1 %in% final_four_directors)
+
+final_four %>% 
+  inner_join(award_data, by = c("director1" = "director")) %>% 
+  filter(award == "oscar") %>% 
+  ggplot(aes(forcats::fct_reorder(matchup, votes2), votes2, fill = as.factor(round))) + 
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  scale_fill_manual(values = as.character(bc_colors)) +
+  labs(
+    title = "Winning Votes in each Round",
+    subtitle = "Robert Zemeckis and Bong Joon-ho",
+    x = "matchup",
+    y = "winning votes",
+    fill = "round"
+  )
+```
+
+Votes in previous round aren't a good predictor for votes.  
+
+```{r}
+# votes in previous round predict winner?
+previous_round <- matchup_data %>% 
+  mutate(previous_round = round - 1) %>% 
+  inner_join(., ., by = c("director1" = "director1", "previous_round" = "round")) 
+
+previous_round %>% 
+  mutate(winner = votes1.x > votes2.x) %>% 
+  ggplot(aes(votes1.y, votes1.x, color = winner)) + 
+  geom_point() +
+  labs(
+    x = "votes in previous round",
+    y = "votes in round"
+  ) +
+  geom_smooth(method = "lm")
+```
+
+Hypothetical Margin of previous round is not a good predictor of current margin.  
+
+```{r}
+# vote differential of previous round predict differential?
+previous_round %>% 
+  select(round, director1, director2 = director2.x, votes1 = votes1.x, votes2 = votes2.x, votes1_prev = votes1.y, previous_round) %>% 
+  inner_join(select(matchup_data, round, director1, votes2_prev = votes1), by = c("director2" = "director1", "previous_round" = "round")) %>% 
+  select(-previous_round) %>% 
+  mutate(margin = votes1 - votes2, prev_margin = votes1_prev - votes2_prev) %>%
+  ggplot(aes(prev_margin, margin)) + 
+  geom_point() + 
+  geom_smooth(method = "lm")
+
+# both weak
+```
+
+Likely need to account for the matchup, not just general preference.  
+
+```{r}
 select(matchups_wvl, matchup, round, winner = director1, loser = director2, winning_votes = votes1, losing_votes = votes2, total_votes) %>% 
   DT::datatable()
 ```
