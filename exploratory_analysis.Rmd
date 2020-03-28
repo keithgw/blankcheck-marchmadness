@@ -16,6 +16,7 @@ theme_set(theme_minimal())
 
 ```{r}
 vote_data <- read_csv("data/votes-mainfeed-2020.csv")
+patreon_data <- read_csv("data/votes-patreon-2020.csv")
 bc_colors <- list(purple = "#715280", blue = "#5B86BF", green = "#6D8F6C", bagel = "#D3984F", gold = "#F9CE5E")
 ```
 
@@ -34,6 +35,43 @@ ggplot(matchups_wvl, aes(forcats::fct_reorder(matchup, total_votes), total_votes
     subtitle = "winner named first",
     x = "Matchup",
     y = "Total Votes",
+    fill = "Round"
+  )
+```
+
+```{r}
+# patreon
+patreon_matchups <- make_matchup_data(patreon_data,"patreon")
+matchups_wvl_patreon <- patreon_matchups %>% 
+  filter(votes1 > votes2) %>% 
+  mutate(matchup = paste(franchise1, franchise2, sep = " vs "))
+  
+ggplot(matchups_wvl_patreon, aes(forcats::fct_reorder(matchup, total_votes), total_votes, fill = as.factor(round))) +
+  geom_bar(stat = "identity") + 
+  scale_fill_manual(values = as.character(bc_colors)) +
+  coord_flip() + 
+  labs(
+    title = "Total Votes by Matchup",
+    subtitle = "winner named first",
+    x = "Matchup",
+    y = "Total Votes",
+    fill = "Round"
+  )
+
+matchups_wvl_patreon %>% 
+  mutate(
+    margin = votes1 - votes2,
+    percent = 100 * margin / total_votes
+  ) %>% 
+  ggplot(aes(forcats::fct_reorder(matchup, margin), margin, fill = as.factor(round))) + 
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = as.character(bc_colors)) +
+  coord_flip() +
+  labs(
+    title = "Margin of Victory",
+    subtitle = "winner named first",
+    x = "Matchup",
+    y = "Votes",
     fill = "Round"
   )
 ```
