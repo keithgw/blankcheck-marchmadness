@@ -1,0 +1,55 @@
+round,franchise,opponent,votes
+1,Alien,Frankenstein,2583
+1,Frankenstein,Alien,741
+1,Indiana Jones,Jurassic Park,1921
+1,Jurassic Park,Indiana Jones,1429
+1,Terminator,RoboCop,2130
+1,RoboCop,Terminator,1094
+1,Mission: Impossible,The Fast and the Furious,2102
+1,The Fast and the Furious, Mission: Impossible,1361
+1,Austin Powers,Connery era James Bond,1626
+1,Connery era James Bond,Austin Powers,1562
+1,The Muppets,Shrek,2151
+1,Shrek,The Muppets,1065
+1,Star Trek: The Original Series,Planet of the Apes: 1968-1973,1723
+1,Planet of the Apes:1968-1973,Star Trek: The Original Series,1292
+1,Twilight,Harry Potter,1377
+1,Harry Potter,Twilight,1918
+1,The Matrix,Resident Evil,1641
+1,Resident Evil,The Matrix,1652
+1,Police Story,John Wick,1145
+1,John Wick,Police Story,2011
+1,Superman,Wolverine,1516
+1,Wolverine,Superman,1677
+1,Before Trilogy,Moral Tales,2121
+1,Moral Tales,Before Trilogy,664
+1,Nightmare on Elm Street,Halloween,1584
+1,Halloween,Nightmare on Elm Street,1352
+1,Qatsi Trilogy,Three Colours,1014
+1,Three Colours,Qatsi Trilogy,1472
+1,The Exorcist,Living Dead,1269
+1,Living Dead,The Exorcist,1484
+1,The Apu Trilogy,Antoine Doniel,1289
+1,Antoine Doniel,The Apu Trilogy,1033
+2,Alien,Terminator,2185
+2,Terminator,Alien,929
+2,Indiana Jones,Mission: Impossible,807
+2,Mission: Impossible,Indiana Jones,2337
+2,Austin Powers,Star Trek: The Original Series,1636
+2,Star Trek: The Original Series,Austin Powers,1671
+2,The Muppets,Harry Potter,1679
+2,Harry Potter,The Muppets,1673
+2,Resident Evil,Wolverine,1627
+2,Wolverine,Resident Evil,1450
+2,John Wick,The Before Trilogy,1908
+2,The Before Trilogy,John Wick,1210
+2,Nightmare on Elm Street,Living Dead,1827
+2,Living Dead,Nightmare on Elm Street,1137
+2,Three Colours,The Apu Trilogy,1449
+2,The Apu Trilogy,Three Colours,1123
+3,Alien,Star Trek: The Original Series,2040
+3,Star Trek: The Original Series,Alien,1221
+3,Mission: Impossible,The Muppets,2093
+3,The Muppets,Mission: Impossible,1286
+3,Resident Evil,Nightmare on Elm Street,2007
+3,Nightmare on Elm Street,Resident Evil,1157
