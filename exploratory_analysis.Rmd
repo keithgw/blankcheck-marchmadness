@@ -45,11 +45,21 @@ patreon_matchups <- make_matchup_data(patreon_data,"patreon")
 matchups_wvl_patreon <- patreon_matchups %>% 
   filter(votes1 > votes2) %>% 
   mutate(matchup = paste(franchise1, franchise2, sep = " vs "))
-  
-ggplot(matchups_wvl_patreon, aes(forcats::fct_reorder(matchup, total_votes), total_votes, fill = as.factor(round))) +
+
+combined_matchups <- select(matchups_wvl, -c(director1, director2)) %>% 
+  mutate(feed = "main") %>% 
+  bind_rows(select(matchups_wvl_patreon, -c(franchise1, franchise2)) %>% mutate(feed = "patreon")) %>% 
+  mutate(
+    margin = votes1 - votes2,
+    percent = 100 * margin / total_votes,
+    matchup = str_replace_all(matchup, "The Original Series", "TOS")
+  )
+
+ggplot(combined_matchups, aes(forcats::fct_reorder(matchup, total_votes), total_votes, fill = as.factor(round))) +
   geom_bar(stat = "identity") + 
   scale_fill_manual(values = as.character(bc_colors)) +
   coord_flip() + 
+  facet_wrap(~feed, scales = "free") +
   labs(
     title = "Total Votes by Matchup",
     subtitle = "winner named first",
@@ -58,15 +68,12 @@ ggplot(matchups_wvl_patreon, aes(forcats::fct_reorder(matchup, total_votes), tot
     fill = "Round"
   )
 
-matchups_wvl_patreon %>% 
-  mutate(
-    margin = votes1 - votes2,
-    percent = 100 * margin / total_votes
-  ) %>% 
+combined_matchups %>% 
   ggplot(aes(forcats::fct_reorder(matchup, margin), margin, fill = as.factor(round))) + 
   geom_bar(stat = "identity") +
   scale_fill_manual(values = as.character(bc_colors)) +
-  coord_flip() +
+  coord_flip() + 
+  facet_wrap(~feed, scales = "free_y") +
   labs(
     title = "Margin of Victory",
     subtitle = "winner named first",
