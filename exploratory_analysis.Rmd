@@ -39,7 +39,7 @@ ggplot(matchups_wvl, aes(forcats::fct_reorder(matchup, total_votes), total_votes
   )
 ```
 
-```{r}
+```{r, fig.width = 10}
 # patreon
 patreon_matchups <- make_matchup_data(patreon_data,"patreon")
 matchups_wvl_patreon <- patreon_matchups %>% 
