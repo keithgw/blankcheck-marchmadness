@@ -25,18 +25,6 @@ matchup_data <- make_matchup_data(vote_data)
 matchups_wvl <- matchup_data %>% 
   filter(votes1 > votes2) %>% 
   mutate(matchup = paste(director1, director2, sep = " vs "))
-  
-ggplot(matchups_wvl, aes(forcats::fct_reorder(matchup, total_votes), total_votes, fill = as.factor(round))) +
-  geom_bar(stat = "identity") + 
-  scale_fill_manual(values = as.character(bc_colors)) +
-  coord_flip() + 
-  labs(
-    title = "Total Votes by Matchup",
-    subtitle = "winner named first",
-    x = "Matchup",
-    y = "Total Votes",
-    fill = "Round"
-  )
 ```
 
 ```{r, fig.width = 10}
@@ -102,25 +90,6 @@ matchups_wvl %>%
 ```
 
 ```{r}
-matchups_wvl %>% 
-  mutate(
-    margin = votes1 - votes2,
-    percent = 100 * margin / total_votes
-  ) %>% 
-  ggplot(aes(forcats::fct_reorder(matchup, percent), percent, fill = as.factor(round))) + 
-  geom_bar(stat = "identity") +
-  scale_fill_manual(values = as.character(bc_colors)) +
-  coord_flip() +
-  labs(
-    title = "Margin of Victory",
-    subtitle = "winner named first",
-    x = "Matchup",
-    y = "Percent",
-    fill = "Round"
-  )
-```
-
-```{r}
 final_four_directors <- matchups_wvl %>% 
   filter(round == 3) %>% 
   magrittr::use_series(director1)
@@ -130,7 +99,7 @@ final_four <- matchups_wvl %>%
 
 final_four %>% 
   inner_join(award_data, by = c("director1" = "director")) %>% 
-  filter(award == "oscar") %>% 
+  # filter(award == "oscar") %>% 
   ggplot(aes(forcats::fct_reorder(matchup, votes2), votes2, fill = as.factor(round))) + 
   geom_bar(stat = 'identity') +
   coord_flip() +
