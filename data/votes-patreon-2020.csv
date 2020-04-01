@@ -57,3 +57,7 @@ round,franchise,opponent,votes
 3,Three Colours,John Wick,1046
 4,Alien,Resident Evil,1914
 4,Resident Evil,Alien,1386
+4,Mission: Impossible,John Wick,2700
+4,John Wick,Mission: Impossible,802
+5,Alien,Mission: Impossible,1479
+5,Mission: Impossible,Alien,2178
